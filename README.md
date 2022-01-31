@@ -15,4 +15,4 @@ Now we take a closer look at the historical data for the 7 most popular patterns
 
 ![](./img/pop2.png)
 
-We observe linear increase in the number of jugglers logging patterns since the creation of the [juggling-records](https://www.juggling-records.com/) website, while around **Nov-Dec 2021** something happened that made the trend exponential!
+We observe linear increase in the number of jugglers logging patterns since the creation of the [juggling-records](https://www.juggling-records.com/) website, while around **Nov-Dec 2020** something happened that made the trend exponential!
