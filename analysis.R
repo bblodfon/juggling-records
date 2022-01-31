@@ -1,6 +1,9 @@
 library(readr)
 library(dplyr)
+library(tidyr)
+library(forcats)
 library(ggplot2)
+library(lubridate)
 
 # 2022-01-23 => data collection date
 data = readr::read_csv(file = 'data/records_23_01_2022.csv')
@@ -48,7 +51,6 @@ pop_pat %>%
   labs(title = 'Pattern Popularity Plot', y = "Number of Jugglers", x = "Pattern name") +
   theme(axis.text.x = element_text(angle = 90), plot.title = element_text(hjust = 0.5))
 ggsave(filename = 'img/pop.png', width = 7, height = 5, dpi = 600)
-#ggsave(filename = 'img/pop.svg')
 
 # The 7 most popular patterns
 pop_pat_7       = pop_pat %>% arrange(desc(num_jugglers)) %>% slice(1:7)
@@ -118,14 +120,10 @@ data_tbl = tibble::tibble(
 data_tbl = data_tbl %>%
   tidyr::pivot_longer(cols = 2:8, names_to = 'Pattern', values_to = 'num_jugglers')
 
-#mutate(`Trick Name` = forcats::fct_reorder(`Trick Name`, num_jugglers, .desc = TRUE)) %>% # properly arrange them
-#  ggplot(aes(x = `Trick Name`, y = num_jugglers, fill = `Trick Name`))
-
 pat_colors = set1_col[1:7]
 names(pat_colors) = pop_pat_7_names
 
 data_tbl %>%
-  #mutate(Pattern = forcats::fct_reorder(Pattern, num_jugglers, .desc = T)) %>%
   ggplot(aes(x = date, y = num_jugglers, color = Pattern)) +
   geom_line() +
   scale_color_manual(values = pat_colors) +
@@ -136,7 +134,6 @@ data_tbl %>%
   theme_classic() +
   theme(plot.title = element_text(hjust = 0.5))
 ggsave(filename = 'img/pop2.png', width = 7, height = 5, dpi = 600)
-#ggsave(filename = 'img/pop2.svg')
 
 # Where does the bump occur?
 num_logs[172] # after this!
